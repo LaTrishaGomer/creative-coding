@@ -1,18 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+
 * {
     box-sizing: border-box;
 }
 
 body {
+    --border-radius: 100px;
+    --blue: #1c47ff;
+    --pink: #d6a3fb;
+    --green: #d0ff94;
+    --grey: #e5e5e5;
+    --gutter: 3.125vw 6.25vw;
+
     margin: 0;
     padding: 0;
     background: black;
     color: white;
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: 'Syne', sans-serif;
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 70px;
+    line-height: 1em;
     margin: 0px;
 }
 
@@ -27,9 +41,24 @@ a {
 }
 
 section {
+    position: relative;
     display: flex;
     width: 100%;
+    height: calc(100vh - 100px);
+    top: 100px;
+    z-index: 2;
+}
+
+section.sticky {
+    position: sticky;
+    margin-top: 100px;
+}
+
+section.full-screen {
     height: 100vh;
+    top: 0;
+    margin-top: 0;
+    z-index: 3;
 }
 
 /* navigation */
@@ -41,6 +70,7 @@ nav {
     top:0;
     left: 0;
     font-size: 20px;
+    z-index: 1;
 }
 
 nav ul {
@@ -59,15 +89,16 @@ nav ul li {
 
 nav ul li a {
     color: white;
-    font-family: monospace;
+    font-family: 'Space Mono', monospace;
 }
 
 /* about section */
 
 section.about .empty {
     flex-basis: 37.5vw;
-    background: #e5e5e5;
-    border-radius: 100px;
+    background: var(--grey);
+    border-radius: var(--border-radius);
+    transition: flex-basis 1s;
 }
 
 section.about article {
@@ -77,20 +108,160 @@ section.about article {
 }
 
 section.about article .title {
-    flex: 2;
+    flex: 1;
     display: flex;
     align-items: flex-end;
-    background: #1c47ff;
+    background: var(--blue);
     border-radius: 100px;
-    padding: 6.27vw;
+    padding:var(--gutter);
+    transition: flex-basis 1s;
 }
 
 section.about article .description {
     flex: 1;
     display: flex;
     align-items: center;
-    background: #d6a3fb;
+    background: var(--pink);
     border-radius: 100px;
-    padding: 6.25vw;
+    padding: var(--gutter);
     color: black;
+}
+
+/* services section */
+
+section.services article {
+    display: flex;
+    width: 100%;
+}
+
+section.services figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 56.25vw;
+    margin: 0;
+    background: var(--green);
+    border-radius: var(--border-radius);
+}
+
+section.services figure img {
+    width: 40%;
+}
+
+section.services .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    background: #1f1a1c;
+    padding: var(--gutter);
+    border-radius: 100px;
+}
+
+section.services .text a {
+    font-family: 'Space Mono,' monospace;
+}
+
+/* service section animations */
+
+section.services.services-html figure img {
+    animation-name: float;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(5px);
+    }
+}
+
+
+/* service section overrides */
+
+section.services.services-html figure {
+    background: var(--green);
+}
+
+section.services.services-html .text h2, section.services.services-html .text a {
+    color: var(--pink);
+}
+
+section.services.services-css figure {
+    background: var(--blue);
+}
+
+section.services.services-css .text h2, section.services.services-css .text a {
+    color: var(--green);
+}
+
+section.services.services-js figure {
+    background: var(--pink);
+}
+
+section.services.services-js .text h2, section.services.services-js .text a {
+    color: var(--blue);
+}
+
+/* contact section */
+
+section.contact {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(var(--blue), var(--green) 60%, var(--pink) 70%, var(--grey));
+    border-radius: var(--border-radius);
+    z-index: 3;
+}
+
+section.contact a {
+    font-size: 100px;
+    color: black;
+    font-weight: bold;
+    transition: color 1s;
+}
+
+section.contact a:hover {
+   color: white;
+}
+
+/* responsive */
+
+@media only screen and (max-width: 768px) {
+    body {
+        --border-radius: 50px;
+        --gutter: 6.25vw;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    nav ul li {
+        margin-left: 25px;
+    }
+
+    section.service article {
+        flex-direction: column;
+    }
+
+    section.service figure {
+        flex-basis: 25vh;
+    }
+
+    section.service figure {
+        width: 20%;
+    }
+
+    section.contact a {
+        font-size: 30px;
+    }
 }
